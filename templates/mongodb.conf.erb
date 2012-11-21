@@ -6,8 +6,10 @@ pre-start script
   mkdir -p /var/log/mongodb/
 end script
 
+<%- if @enable -%>
 start on runlevel [2345]
 stop on runlevel [06]
+<%- end -%>
 
 respawn
 
