@@ -59,7 +59,7 @@ class mongodb(
 
   service { "mongodb":
     enable => $enable,
-    ensure => running,
+    ensure => "running",
     require => Package[$package],
   }
 
