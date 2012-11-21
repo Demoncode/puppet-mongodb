@@ -21,7 +21,8 @@ class mongodb(
   $replSet = $mongodb::params::replSet,
   $ulimit_nofile = $mongodb::params::ulimit_nofile,
   $repository = $mongodb::params::repository,
-  $package = $mongodb::params::package
+  $package = $mongodb::params::package,
+  $enable = true
 ) inherits mongodb::params {
 
   if !defined(Package["python-software-properties"]) {
@@ -57,7 +58,7 @@ class mongodb(
   }
 
   service { "mongodb":
-    enable => true,
+    enable => $enable,
     ensure => running,
     require => Package[$package],
   }
