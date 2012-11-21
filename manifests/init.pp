@@ -61,6 +61,7 @@ class mongodb(
     enable => $enable,
     ensure => "running",
     require => Package[$package],
+    provider => "upstart",
   }
 
   file { "/etc/init/mongodb.conf":
