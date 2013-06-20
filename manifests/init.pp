@@ -17,14 +17,11 @@
 #    ulimit_nofile => 20000,
 #  }
 #
-class mongodb(
-  $replSet = $mongodb::params::replSet,
-  $ulimit_nofile = $mongodb::params::ulimit_nofile,
-  $repository = $mongodb::params::repository,
-  $package = $mongodb::params::package,
-  $enable = true
-) inherits mongodb::params {
 
+class mongodbbase(
+  $repository = $mongodb::params::repository,
+  $package = $mongodb::params::package
+) inherits mongodb::params {
   if !defined(Package["python-software-properties"]) {
     package { "python-software-properties":
       ensure => installed,
@@ -56,7 +53,13 @@ class mongodb(
     ensure => installed,
     require => Exec["update-apt"],
   }
+}
 
+class mongodb(
+  $replSet = $mongodb::params::replSet,
+  $ulimit_nofile = $mongodb::params::ulimit_nofile,
+  $enable = true
+) inherits mongodbbase {
   service { "mongodb":
     enable => $enable,
     ensure => "running",
@@ -70,5 +73,4 @@ class mongodb(
     notify => Service["mongodb"],
     require => Package[$package],
   }
-
 }
