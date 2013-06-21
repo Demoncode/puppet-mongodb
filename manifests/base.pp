@@ -1,4 +1,4 @@
-class base(
+class mongodb::base(
   $repository = $mongodb::params::repository,
   $package = $mongodb::params::package
 ) inherits mongodb::params {
